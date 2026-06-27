@@ -1,0 +1,142 @@
+[
+  {
+    "id": "sql-injection",
+    "title": "SQL Injection Prevention",
+    "category": "security",
+    "tags": ["sql", "database", "query", "injection", "sqlite", "mysql", "postgres"],
+    "content": "SQL injection occurs when user input is concatenated directly into SQL queries. Always use parameterized queries or prepared statements. Example: Use `cursor.execute('SELECT * FROM users WHERE id = ?', (user_id,))` instead of string concatenation. Never trust user-supplied input in query strings. ORMs like SQLAlchemy provide built-in protection."
+  },
+  {
+    "id": "xss-prevention",
+    "title": "Cross-Site Scripting (XSS) Prevention",
+    "category": "security",
+    "tags": ["xss", "innerHTML", "html", "javascript", "dom", "sanitize", "escape"],
+    "content": "XSS attacks inject malicious scripts into web pages. Never set innerHTML with untrusted data. Use textContent instead of innerHTML when inserting user data into the DOM. Sanitize all user inputs on both client and server side. Use Content Security Policy (CSP) headers. In React, JSX escapes values by default — avoid dangerouslySetInnerHTML."
+  },
+  {
+    "id": "hardcoded-secrets",
+    "title": "Hardcoded Credentials and Secrets",
+    "category": "security",
+    "tags": ["password", "secret", "key", "token", "credential", "api_key", "hardcoded", "env"],
+    "content": "Never hardcode passwords, API keys, or secrets in source code. Use environment variables (dotenv, os.environ) or secrets managers (AWS Secrets Manager, HashiCorp Vault). Rotate any secrets that were accidentally committed. Add .env to .gitignore. Use tools like git-secrets or truffleHog to scan for secrets in commits."
+  },
+  {
+    "id": "input-validation",
+    "title": "Input Validation and Sanitization",
+    "category": "security",
+    "tags": ["validation", "input", "sanitize", "user input", "boundary", "type check"],
+    "content": "Validate all inputs at system boundaries. Check type, length, format, and range. Reject inputs that don't conform to expected schemas. Use allowlists not denylists. In Python, use Pydantic or marshmallow for schema validation. In JavaScript, use Zod or Joi. Never trust client-side validation alone — always validate on the server."
+  },
+  {
+    "id": "error-handling",
+    "title": "Error Handling Best Practices",
+    "category": "reliability",
+    "tags": ["exception", "error", "try", "catch", "finally", "raise", "throw", "handle"],
+    "content": "Catch specific exceptions rather than bare `except` or catching `Exception` broadly. Always close resources in finally blocks or use context managers (with statements). Log errors with enough context to debug. Don't swallow exceptions silently. Return meaningful error messages to callers without exposing internal stack traces to end users."
+  },
+  {
+    "id": "division-by-zero",
+    "title": "Arithmetic Safety and Division by Zero",
+    "category": "bugs",
+    "tags": ["divide", "division", "zero", "arithmetic", "math", "modulo"],
+    "content": "Always guard against division by zero before performing division or modulo operations. Check the denominator: `if b != 0: result = a / b`. In Python, ZeroDivisionError is raised on integer division by zero. Use safe division helpers or guard clauses at function entry points."
+  },
+  {
+    "id": "async-await",
+    "title": "Async/Await and Promise Handling",
+    "category": "bugs",
+    "tags": ["async", "await", "promise", "fetch", "then", "catch", "javascript", "typescript"],
+    "content": "Always await async functions and handle rejections. `data.json()` is async and must be awaited: `const json = await data.json()`. Add try/catch around await calls to handle network errors. Avoid mixing .then()/.catch() chains with async/await. Check response.ok before parsing JSON from fetch responses."
+  },
+  {
+    "id": "resource-management",
+    "title": "Resource and Connection Management",
+    "category": "reliability",
+    "tags": ["connection", "close", "resource", "leak", "file", "socket", "database", "context manager"],
+    "content": "Always close database connections, file handles, and network sockets after use. Use context managers in Python: `with sqlite3.connect(...) as conn:` ensures cleanup even on exceptions. In JavaScript, use try/finally. Connection leaks exhaust pool limits and crash long-running services."
+  },
+  {
+    "id": "naming-conventions",
+    "title": "Naming Conventions and Readability",
+    "category": "quality",
+    "tags": ["naming", "variable", "function", "class", "readable", "camel", "snake", "convention"],
+    "content": "Use descriptive, intention-revealing names. Python uses snake_case for variables/functions, PascalCase for classes. JavaScript/TypeScript use camelCase for variables/functions, PascalCase for classes. Avoid single-letter names except loop counters. Boolean variables should read as questions: `is_valid`, `has_permission`. Constants use UPPER_SNAKE_CASE."
+  },
+  {
+    "id": "function-length",
+    "title": "Function Length and Single Responsibility",
+    "category": "quality",
+    "tags": ["function", "method", "length", "responsibility", "refactor", "complexity", "cohesion"],
+    "content": "Functions should do one thing and do it well. If a function exceeds 20-30 lines, consider breaking it up. Each function should have a single, clear responsibility. Extract helper functions for distinct logical steps. High cyclomatic complexity (many if/else branches) is a sign to refactor. Use early returns to reduce nesting."
+  },
+  {
+    "id": "list-comprehension",
+    "title": "Python Idiomatic Code and Comprehensions",
+    "category": "quality",
+    "tags": ["python", "list", "comprehension", "loop", "idiomatic", "pythonic", "map", "filter"],
+    "content": "Prefer list/dict/set comprehensions over explicit loops for simple transformations: `[x.name for x in items]` instead of a for loop with append. Use enumerate() instead of range(len()). Use zip() to iterate parallel sequences. Context managers (with) for resources. f-strings for string formatting. Avoid global variables."
+  },
+  {
+    "id": "type-checking",
+    "title": "Type Hints and Static Analysis",
+    "category": "quality",
+    "tags": ["type", "hint", "annotation", "typescript", "mypy", "static", "any", "interface"],
+    "content": "Add type hints to Python functions (PEP 484) to catch bugs early and improve IDE support. Use mypy or pyright for static checking. In TypeScript, avoid `any` type — use specific types or generics. Define interfaces for data shapes. Use `strict` mode in tsconfig.json. Type-safe code prevents entire classes of runtime bugs."
+  },
+  {
+    "id": "performance-loops",
+    "title": "Loop Performance and Algorithmic Efficiency",
+    "category": "performance",
+    "tags": ["performance", "loop", "n^2", "complexity", "optimization", "big-o", "inefficient"],
+    "content": "Avoid O(n²) operations in hot paths. Use sets/dicts for O(1) lookups instead of searching lists. Avoid repeated database queries inside loops (N+1 problem) — batch queries instead. Cache expensive computations. Use generators for large data streams. Profile before optimizing — don't guess at bottlenecks."
+  },
+  {
+    "id": "var-vs-let-const",
+    "title": "JavaScript Variable Declarations (var vs let/const)",
+    "category": "quality",
+    "tags": ["var", "let", "const", "javascript", "hoisting", "scope", "es6"],
+    "content": "Never use `var` in modern JavaScript — it has function scope and hoisting behavior that causes bugs. Use `const` for values that won't be reassigned (most cases). Use `let` when the variable needs to be reassigned. This prevents accidental global variables and makes scope clear. Enable ESLint's `no-var` rule to enforce this."
+  },
+  {
+    "id": "loose-equality",
+    "title": "JavaScript Strict vs Loose Equality",
+    "category": "bugs",
+    "tags": ["==", "===", "equality", "javascript", "coercion", "comparison"],
+    "content": "Always use strict equality (`===` and `!==`) in JavaScript. Loose equality (`==`) performs type coercion with surprising results: `0 == false` is true, `'' == false` is true, `null == undefined` is true. Use `===` to compare values without type coercion. Enable ESLint's `eqeqeq` rule."
+  },
+  {
+    "id": "null-undefined",
+    "title": "Null and Undefined Handling",
+    "category": "bugs",
+    "tags": ["null", "undefined", "none", "nullpointer", "optional", "null check", "?."],
+    "content": "Check for null/undefined before accessing properties. In JavaScript, use optional chaining: `obj?.prop?.nested`. Use nullish coalescing: `value ?? defaultValue`. In Python, check for None before using values. Provide sensible defaults at function boundaries. TypeScript strict null checks catch these at compile time."
+  },
+  {
+    "id": "logging-observability",
+    "title": "Logging and Observability",
+    "category": "observability",
+    "tags": ["logging", "log", "print", "debug", "monitor", "trace", "metric"],
+    "content": "Use structured logging (JSON) instead of print statements in production code. Log at appropriate levels: DEBUG for development detail, INFO for normal operations, WARNING for unexpected-but-handled states, ERROR for failures. Include context: request IDs, user IDs, operation names. Never log sensitive data (passwords, tokens). Use centralized log aggregation in production."
+  },
+  {
+    "id": "code-duplication",
+    "title": "DRY Principle and Code Duplication",
+    "category": "maintainability",
+    "tags": ["dry", "duplication", "repeat", "copy", "paste", "refactor", "reuse"],
+    "content": "Don't Repeat Yourself (DRY): extract duplicated logic into reusable functions. However, avoid premature abstraction — duplicate once, abstract twice (Rule of Three). Shared utilities should be in a common module. Configuration values should be defined in one place. Duplication makes bugs multiply: fix it in one place and forget to fix it in another."
+  },
+  {
+    "id": "password-storage",
+    "title": "Secure Password Storage",
+    "category": "security",
+    "tags": ["password", "hash", "bcrypt", "salt", "md5", "sha", "plaintext", "store"],
+    "content": "Never store passwords in plaintext or with weak hashes (MD5, SHA1). Use bcrypt, argon2, or scrypt — algorithms designed for password hashing with automatic salting and tunable cost. Python: use `bcrypt` or `passlib`. Never compare passwords with `==`, use constant-time comparison (`hmac.compare_digest`). Hash + salt, never encrypt passwords."
+  },
+  {
+    "id": "api-error-responses",
+    "title": "API Error Response Design",
+    "category": "reliability",
+    "tags": ["api", "rest", "http", "status", "error", "response", "4xx", "5xx"],
+    "content": "Return appropriate HTTP status codes: 400 for client errors, 401 for unauthenticated, 403 for unauthorized, 404 for not found, 422 for validation errors, 500 for server errors. Include a consistent error response body with a machine-readable code and human-readable message. Don't expose internal stack traces in production error responses."
+  }
+]
